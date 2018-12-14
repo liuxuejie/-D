@@ -1,0 +1,149 @@
+#include<stdio.h>
+#include<windows.h>
+#include<stdlib.h>
+#include<string.h>
+int i=0;
+struct message
+{
+    char num[15]; //学院数
+    char name[15];//学院名
+    char place[15];//学院地点
+    char renshu[15];//学院人数
+    char phone[15];//学院电话
+} stu[100];
+void menu()
+{
+    printf("                                               欢迎来到学院信息管理系统\n");
+    printf("                                         *************菜单*************\n");
+    printf("                                         *                            *\n");
+    printf("                                         * 浏览数据请输入           1 *\n");
+    printf("                                         *                            *\n");
+    printf("                                         * 增加数据请输入           2 *\n");
+    printf("                                         *                            *\n");
+    printf("                                         *                            *\n");
+    printf("                                         *                            *\n");
+    printf("                                         * 查询数据请输入           3 *\n");
+    printf("                                         *                            *\n");
+    printf("                                         * 删除数据请输入           4 *\n");
+    printf("                                         *                            *\n");
+    printf("                                         * 退出程序请输入           5 *\n");
+    printf("                                         *                            *\n");
+    printf("                                         ******************************\n");
+    system("color F9");
+}
+void see()
+{   int j;
+    for(j=0; j<i; j++)
+    {
+        printf("||学院号%s||名称%s||地点%s||人数%s||办公电话%s||\n",stu[j].num,stu[j].name,stu[j].place,stu[j].renshu,stu[j].phone);
+    }
+    system("pause");
+}
+void add()
+{
+    int a;
+    printf("请输入增加数据的个数");
+    scanf("%d",&a);
+
+    int b=i+a;
+    for(i; i<b; i++)
+    {
+        printf("请顺序输入学院号 名称 地点 人数 办公电话\n");
+        scanf("%s%s%s%s%s",stu[i].num,stu[i].name,stu[i].place,stu[i].renshu,stu[i].phone);
+
+
+    }
+}
+
+void search()
+{
+    int a,j;
+    char n[10];
+    printf("按名称搜索请按1 按学院号搜索请按2");
+    scanf("%d",&a);
+
+    if(a==1)
+    {
+        printf("请输入名称");
+        scanf("%s",n);
+
+        for(j=0; j<i; j++)
+        {
+            if(strcmp(stu[j].name,n)==0)
+            {
+                printf("||学院号%s||名称%s||地点%s||人数%s||办公电话%s||\n",stu[j].num,stu[j].name,stu[j].place,stu[j].renshu,stu[j].phone);
+            }
+        }
+        system("pause");
+    }
+    else if(a==2)
+    {
+        printf("请输入学院号");
+        scanf("%s",n);
+
+        for(j=0; j<i; j++)
+        {
+            if(strcmp(stu[j].num,n)==0)
+            {
+                 printf("||学院号%s||名称%s||地点%s||人数%s||办公电话%s||\n",stu[j].num,stu[j].name,stu[j].place,stu[j].renshu,stu[j].phone);
+            }
+        }
+        system("pause");
+    }
+}
+void dell()
+{
+    char v[20];
+    printf("请输入你要删除的学院号");
+    scanf("%s",v);
+    int j=0;int k=0;
+    for(j=0;j<i;j++)
+    {
+        if(strcmp(v,stu[j].num)==0)
+        {
+            for(k=j;k<i-1;k++)
+            {
+                strcpy(stu[k].num,stu[k+1].num);
+                strcpy(stu[k].name,stu[k+1].name);
+                strcpy(stu[k].place,stu[k+1].place);
+                strcpy(stu[k].renshu,stu[k+1].renshu);
+                strcpy(stu[k].phone,stu[k+1].phone);
+            }
+            strcpy(stu[i-1].num,"");
+            strcpy(stu[i-1].name,"");
+            strcpy(stu[i-1].place,"");
+            strcpy(stu[i-1].renshu,"");
+            strcpy(stu[i-1].phone,"");
+
+            i--;
+            break;
+        }
+    }
+
+}
+int main()
+{
+    while(1)
+    {
+
+        menu();
+        int a;
+        scanf("%d",&a);
+
+        switch (a)
+        {
+        case 1:see();
+            break;
+        case 2:add();
+            break;
+
+        case 3: search();
+            break;
+        case 4:dell();
+            break;
+        case 5: exit(0);
+        default:printf("请重新输入");
+        }
+    }
+    return 0;
+}
